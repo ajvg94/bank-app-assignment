@@ -43,14 +43,12 @@ export class AccountService {
    * @param {Account} account - The account object.
    * @return {Promise<Account>} The updated account data.
    */
-  static async updateCurrentBalance(transactionData: Transaction, account: Account): Promise<Account> {
+  static async updateCurrentBalance(transactionData: Transaction, accountData: Account): Promise<Account> {
     try{
-      if(transactionData.type === transactionTypes.WITHDRAWAL) account.currentBalance = account.currentBalance - transactionData.amount;
-      else account.currentBalance = account.currentBalance + transactionData.amount;
+      if(transactionData.type === transactionTypes.WITHDRAWAL) accountData.currentBalance = accountData.currentBalance - transactionData.amount;
+      else accountData.currentBalance = accountData.currentBalance + transactionData.amount;
 
-      await AccountModel.update(account, { where: {accountNumber: account.accountNumber} });
-      
-      let accountData = await AccountService.getAccountByNumber(transactionData.accountNumber);
+      await AccountModel.update(accountData, { where: {accountNumber: accountData.accountNumber} });
       return accountData;
     }catch (error){
       throw error;
