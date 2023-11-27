@@ -7,6 +7,7 @@ import slowDown from "express-slow-down";
 import cors from "cors";
 import { AccountRouter } from "./routes/accounts";
 import { TransactionRouter } from "./routes/transactions";
+import databaseConnection from "./database/connection";
 
 const PORT = process.env.PORT ?? 3001;
 const app = express();
@@ -51,4 +52,7 @@ app.use(TransactionRouter);
 
 //initialize
 console.clear();
-app.listen(PORT, () => console.log (`Server listening on ${PORT}`))
+app.listen(PORT, async () => {
+    await databaseConnection.sync();
+    console.log(`Listening on port ${PORT}`);
+})

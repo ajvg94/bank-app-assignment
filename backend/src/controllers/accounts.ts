@@ -6,21 +6,22 @@ import { handleErrorResponse } from "../helpers/errorHandler";
 
 export class AccountController {
   
+  
   /**
-   * Creates a new account based on the provided request data.
+   * Creates an account.
    *
-   * @param {Request} req - The request object containing account data.
-   * @param {Response} res - The response object used to send a response to the client.
-   * @return {Promise<void>} - A promise that resolves when the account is created.
-  */
+   * @param {Request} req - The request object.
+   * @param {Response} res - The response object.
+   * @return {Promise<void>} - A promise that resolves with no value.
+   */
   static async createAccount(req: Request, res: Response) {
     try {
-        let accountData = { ...req.body, currentBalance: req.body.initialBalance };
-        await AccountValidator.createAccountSchema.validate(accountData, validatorOptions);
-        let createdAccountId = await AccountService.createAccount(accountData);
-        res.status(200).send({ data: createdAccountId, message: 'Account created succesfully' });
+      let accountData = { ...req.body, currentBalance: req.body.initialBalance };
+      await AccountValidator.createAccountSchema.validate(accountData, validatorOptions);
+      let id = await AccountService.createAccount(accountData);
+      res.status(200).send({ data: {id}, message: 'Account created succesfully' });
     } catch (error) {
-        handleErrorResponse(res, error);
+      handleErrorResponse(res, error);
     }
   }
 }

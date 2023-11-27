@@ -1,5 +1,5 @@
-import Account from './accounts.model'
-import Transaction from './transactions.model'
+import AccountModel from './accounts.model'
+import TransactionModel from './transactions.model'
 import { transactionTypes } from '../types/transactions';
 import databaseConnection from './connection';
 seed();
@@ -11,25 +11,27 @@ async function seed() {
 
     //insert data
     await Promise.all([
-        Account.create({
+        AccountModel.create({
             id: 1,
+            accountNumber: 1234,
             name: 'msanchezc',
             currentBalance: 800,
             initialBalance: 600
         }),
-        Account.create({
+        AccountModel.create({
             id: 2,
+            accountNumber: 12345,
             name: 'clagosx',
             currentBalance: 200,
             initialBalance: 500
         }),
-        Transaction.create({
+        TransactionModel.create({
             id: 1,
             accountId: 1,
             type: transactionTypes.DEPOSIT,
             amount: 200
         }),
-        Transaction.create({
+        TransactionModel.create({
             id: 2,
             accountId: 2,
             type: transactionTypes.WITHDRAWAL,

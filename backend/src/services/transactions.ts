@@ -1,24 +1,25 @@
+import TransactionModel  from '../database/transactions.model';
 import { Transaction } from '../types/transactions';
 import { Account } from '../types/accounts';
+import { AccountService } from './accounts';
 import { HttpStatusCodes } from '../types/error';
 
 export class TransactionService {
-  /**
-   * Creates a new transaction for a user.
-   *
-   * @param {number} UserId - The ID of the user.
-   * @param {Transaction} createTransactionData - The data for creating the transaction.
-   * @return {Promise<void>} - A promise that resolves when the transaction is created.
-   */
-  static async createTransaction(createTransactionData: Transaction) {
+  
+/**
+ * Create a new transaction in the system.
+ *
+ * @param {Transaction} createTransactionData - The transaction data for creating a new transaction.
+ * @return {Promise<number>} - The updated account balance after the transaction is created.
+ */
+  static async createTransaction(createTransactionData: Transaction): Promise<Account> {
     try{
-        const account = {
-            "name": "cuenta 1",
-            "number": 123,
-            "initialBalance": 12345,
-            "currentBalance": 123456
-        }
-        return account;
+      const account = await AccountService.getAccountByNumber(createTransactionData.accountNumber);
+      if(account && account.id) {
+        await TransactionModel.create({...createTransactionData, accountId: account.id});
+        return await AccountService.updateCurrentBalance(createTransactionData, account);
+      }
+      else throw HttpStatusCodes.NOT_FOUND;
     }catch (error){
       throw error;
     }

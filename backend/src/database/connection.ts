@@ -1,12 +1,12 @@
 import 'dotenv/config';
 import { Sequelize } from 'sequelize-typescript';
-import Account from './accounts.model'
-import Transaction from './transactions.model'
+import AccountModel from './accounts.model'
+import TransactionModel from './transactions.model'
 
 const databaseConnection = new Sequelize({
     dialect: "sqlite",
     storage: './database.sqlite3',
-    models: [Account, Transaction]
+    models: [AccountModel, TransactionModel]
 });
 
 export default databaseConnection;

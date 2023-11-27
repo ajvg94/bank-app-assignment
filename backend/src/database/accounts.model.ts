@@ -1,18 +1,24 @@
 import {Table, Column, Model, DataType, HasMany} from 'sequelize-typescript';
-import Transaction from './transactions.model';
+import TransactionModel from './transactions.model';
 
 @Table({
   tableName:'Accounts',
   modelName: 'Account',
   timestamps: true,
 })
-export default class Account extends Model {
+export default class AccountModel extends Model {
   @Column({
     type: DataType.INTEGER,
     primaryKey: true,
     autoIncrement: true
   })
   id!: number;
+
+  @Column({
+    type: DataType.INTEGER,
+    unique: true
+  })
+  accountNumber!: number;
 
   @Column({
     type: DataType.TEXT
@@ -29,6 +35,6 @@ export default class Account extends Model {
   })
   initialBalance!: number;
 
-  @HasMany(() => Transaction, 'accountId')
-  transactions?: Transaction[];
+  @HasMany(() => TransactionModel, 'accountId')
+  transactions?: TransactionModel[];
 }

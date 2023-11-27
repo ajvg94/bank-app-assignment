@@ -1,12 +1,12 @@
 import {Table, Column, Model, DataType, ForeignKey, BelongsTo} from 'sequelize-typescript';
-import Account from './accounts.model'
+import AccountModel from './accounts.model'
 
 @Table({
   tableName:'Transactions',
   modelName: 'Transaction',
   timestamps: true
 })
-export default class Transaction extends Model {
+export default class TransactionModel extends Model {
   @Column({
     type: DataType.INTEGER,
     primaryKey: true,
@@ -24,10 +24,10 @@ export default class Transaction extends Model {
   })
   amount!: number;
   
-  @ForeignKey(() => Account)
+  @ForeignKey(() => AccountModel)
   @Column
   accountId!: number;
 
-  @BelongsTo(() => Account, 'accountId')
-  account!: Account;
+  @BelongsTo(() => AccountModel, 'accountId')
+  account!: AccountModel;
 }
