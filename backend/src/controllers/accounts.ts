@@ -5,12 +5,14 @@ import { validatorOptions } from '../validators/validatorOptions';
 import { handleErrorResponse } from "../helpers/errorHandler";
 
 export class AccountController {
+  
   /**
-   * Creates an account using the provided account data.
+   * Creates a new account based on the provided request data.
    *
-   * @param {Account} createAccountData - The account data used to create the account.
-   * @return {Promise<void>} A promise that resolves when the account is created successfully.
-   */
+   * @param {Request} req - The request object containing account data.
+   * @param {Response} res - The response object used to send a response to the client.
+   * @return {Promise<void>} - A promise that resolves when the account is created.
+  */
   static async createAccount(req: Request, res: Response) {
     try {
         let accountData = { ...req.body, currentBalance: req.body.initialBalance };

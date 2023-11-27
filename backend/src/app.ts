@@ -4,7 +4,8 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit"
 import slowDown from "express-slow-down";
 import cors from "cors";
-import { AccountsRouter } from "./routes/accounts";
+import { AccountRouter } from "./routes/accounts";
+import { TransactionRouter } from "./routes/transactions";
 
 const PORT = process.env.PORT ?? 3001;
 const app = express();
@@ -16,7 +17,7 @@ app.disable('x-powered-by');
 const corsOption = {
     credentials: true,
     optionsSuccessStatus: 200,
-    methods: "GET,PUT,POST,DELETE",
+    methods: "GET,POST",
     origin: ['http://localhost:3001', 'http://localhost:80']
 }
 app.use(cors(corsOption));
@@ -44,7 +45,8 @@ app.use(speedLimiter);
 app.use(express.json());
 
 //routes
-app.use(AccountsRouter);
+app.use(AccountRouter);
+app.use(TransactionRouter);
 
 //initialize
 console.clear();
