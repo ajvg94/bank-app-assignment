@@ -1,12 +1,10 @@
 import { Request, Response } from 'express';
-import { AccountService } from '../services/accounts';
+import AccountService from '../services/accounts';
 import * as AccountValidator from "../validators/accounts";
 import { validatorOptions } from '../validators/validatorOptions';
 import { handleErrorResponse } from "../helpers/errorHandler";
 
 export class AccountController {
-  
-  
   /**
    * Creates an account.
    *

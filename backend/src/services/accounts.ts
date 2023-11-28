@@ -1,8 +1,9 @@
 import { Account, UpdateCurrentBalanceData } from '../types/accounts';
 import { Transaction, transactionTypes } from '../types/transactions';
 import AccountModel  from '../database/accounts.model';
+import Database from "../database/connection";
 
-export class AccountService {
+export default class AccountService {
   
   /**
    * Retrieves an account by its account number.
@@ -12,14 +13,16 @@ export class AccountService {
    */
   static async getAccountByNumber(accountNumber: number): Promise<Account>{
     try{
+      let databaseConnection = await Database.createNewDatabaseConnection();
       const account = await AccountModel.findOne({ where: {accountNumber: accountNumber} }) as Account;
+      await databaseConnection.close();
+
       return account;
     }catch(error){
       throw(error);
     }
   }
 
-  
   /**
    * Creates an account using the provided account data.
    *
@@ -28,13 +31,15 @@ export class AccountService {
    */
   static async createAccount(createAccountData: Account): Promise<number | undefined> {
     try{
+      let databaseConnection = await Database.createNewDatabaseConnection();
       const createdAccount: Account = await AccountModel.create({...createAccountData});
+      await databaseConnection.close();
+
       return createdAccount.id;
     }catch(error){
       throw(error);
     }
   }
-
 
   /**
    * Updates the current balance of an account based on a transaction, and returns the updated account data.
@@ -48,7 +53,9 @@ export class AccountService {
       if(transactionData.type === transactionTypes.WITHDRAWAL) accountData.currentBalance = accountData.currentBalance - transactionData.amount;
       else accountData.currentBalance = accountData.currentBalance + transactionData.amount;
 
+      let databaseConnection = await Database.createNewDatabaseConnection();
       await AccountModel.update(accountData, { where: {accountNumber: accountData.accountNumber} });
+      await databaseConnection.close();
       return accountData;
     }catch (error){
       throw error;

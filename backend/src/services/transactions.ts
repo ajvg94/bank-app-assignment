@@ -1,10 +1,11 @@
 import TransactionModel  from '../database/transactions.model';
 import { Transaction } from '../types/transactions';
 import { Account } from '../types/accounts';
-import { AccountService } from './accounts';
-import { HttpStatusCodes } from '../types/error';
+import AccountService  from './accounts';
+import { HttpStatusCodes } from '../types/httpStatus';
+import Database from "../database/connection";
 
-export class TransactionService {
+export default class TransactionService {
   
 /**
  * Create a new transaction in the system.
@@ -16,8 +17,13 @@ export class TransactionService {
     try{
       const account = await AccountService.getAccountByNumber(createTransactionData.accountNumber);
       if(account && account.id) {
+        let accountData = await AccountService.updateCurrentBalance(createTransactionData, account);
+
+        let databaseConnection = await Database.createNewDatabaseConnection();
         await TransactionModel.create({...createTransactionData, accountId: account.id});
-        return await AccountService.updateCurrentBalance(createTransactionData, account);
+        await databaseConnection.close();
+
+        return accountData;
       }
       else throw HttpStatusCodes.NOT_FOUND;
     }catch (error){

@@ -1,12 +1,10 @@
 import { Request, Response } from 'express';
-import { TransactionService } from '../services/transactions';
+import TransactionService from '../services/transactions';
 import * as TransactionValidator from "../validators/transactions";
 import { validatorOptions } from '../validators/validatorOptions';
 import { handleErrorResponse } from "../helpers/errorHandler";
 
 export class TransactionController {
-  
-    
     /**
      * Creates a transaction.
      *

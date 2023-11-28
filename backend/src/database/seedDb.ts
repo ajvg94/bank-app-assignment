@@ -1,11 +1,12 @@
 import AccountModel from './accounts.model'
 import TransactionModel from './transactions.model'
 import { transactionTypes } from '../types/transactions';
-import databaseConnection from './connection';
+import Database from './connection';
 seed();
 async function seed() {
     // create tables
     console.log("creating tables")
+    let databaseConnection = await Database.createNewDatabaseConnection();
     await databaseConnection.sync({force: true});
     console.log("created tables")
 
@@ -38,4 +39,6 @@ async function seed() {
             amount: 300
         }),
     ]);
+
+    await databaseConnection.close();
 }

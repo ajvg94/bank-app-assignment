@@ -1,5 +1,5 @@
-import { ErrorTypes, HttpStatusCodes } from "../types/error";
-import { HttpStatus } from "../types/httpStatus";
+import { ErrorTypes } from "../types/error";
+import { HttpStatus, HttpStatusCodes } from "../types/httpStatus";
 import { ValidationError } from "yup";
 import { Response } from "express";
 
