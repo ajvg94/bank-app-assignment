@@ -1,4 +1,5 @@
 export enum ErrorTypes {
+  INSUFFICIENT_FUNDS = "Insufficient funds",
   INTERNAL_ERROR = 'An unexpected error occurred while processing the request. Please try again later or contact support for assistance.', 
   UNAUTHORIZED = 'unauthorized',
   NOT_FOUND = 'Resource not found',

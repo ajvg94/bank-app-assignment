@@ -11,6 +11,7 @@
     "watch": "tsc -w",
     "dev": "nodemon ./src/app.ts",
     "start": "node ./dist/src/app.js",
+    "buildstart": "npm run build && npm run start",
     "seed": "node ./dist/src/database/seedDb.js",
     "test": "jest"
   },

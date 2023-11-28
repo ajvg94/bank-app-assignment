@@ -1,4 +1,5 @@
 import { Account } from '../types/accounts';
+import { ErrorTypes } from '../types/error';
 import { Transaction, transactionTypes } from '../types/transactions';
 import AccountModel  from '../database/accounts.model';
 import Database from "../database/connection";
@@ -14,10 +15,10 @@ export default class AccountService {
   static async getAccountByNumber(accountNumber: number): Promise<Account>{
     try{
       let databaseConnection = await Database.createNewDatabaseConnection();
-      const account = await AccountModel.findOne({ where: {accountNumber: accountNumber} }) as Account;
+      const account = await AccountModel.findOne({ where: {accountNumber: accountNumber} });
       await databaseConnection.close();
 
-      return account;
+      return account?.dataValues as Account;
     }catch(error){
       throw(error);
     }
@@ -52,6 +53,8 @@ export default class AccountService {
     try{
       if(transactionData.type === transactionTypes.WITHDRAWAL) accountData.currentBalance = accountData.currentBalance - transactionData.amount;
       else accountData.currentBalance = accountData.currentBalance + transactionData.amount;
+
+      if (accountData.currentBalance < 0) throw ErrorTypes.INSUFFICIENT_FUNDS;
 
       let databaseConnection = await Database.createNewDatabaseConnection();
       await AccountModel.update(accountData, { where: {accountNumber: accountData.accountNumber} });

@@ -3,7 +3,6 @@ import { HttpStatus, HttpStatusCodes } from "../types/httpStatus";
 import { ValidationError } from "yup";
 import { Response } from "express";
 
-
 /**
  * Handles the error response from the API.
  *
@@ -16,6 +15,9 @@ export const handleErrorResponse = async (res: Response, error: any): Promise<vo
     switch (true) {
         case error instanceof ValidationError:
             res.status(HttpStatusCodes.BAD_REQUEST).send({ status: HttpStatus.ERROR, error: error.errors });
+            break;
+        case error === ErrorTypes.INSUFFICIENT_FUNDS:
+            res.status(HttpStatusCodes.BAD_REQUEST).send({ status: HttpStatus.ERROR, error: ErrorTypes.INSUFFICIENT_FUNDS });
             break;
         case error instanceof Error:
             res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send({ status: HttpStatus.ERROR, error });

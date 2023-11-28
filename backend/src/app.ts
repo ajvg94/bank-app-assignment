@@ -10,7 +10,7 @@ import * as swaggerDocument from "./swagger.json";
 import { AccountRouter } from "./routes/accounts";
 import { TransactionRouter } from "./routes/transactions";
 
-const PORT = process.env.PORT ?? 3001;
+const PORT = process.env.PORT ?? 3002;
 export const app = express();
 
 //security
@@ -20,8 +20,8 @@ app.disable('x-powered-by');
 const corsOption = {
     credentials: true,
     optionsSuccessStatus: 200,
-    methods: "GET,POST",
-    origin: ['http://localhost:3001', 'http://localhost:80']
+    methods: "POST",
+    origin: ['http://localhost:3000','http://localhost:3001','http://localhost:3003']
 }
 app.use(cors(corsOption));
 
