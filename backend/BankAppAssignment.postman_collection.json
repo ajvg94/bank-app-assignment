@@ -1,0 +1,70 @@
+{
+	"info": {
+		"_postman_id": "32cf5de9-72c1-4e73-8261-dae1767c97a6",
+		"name": "BankAppAssignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11908603"
+	},
+	"item": [
+		{
+			"name": "localhost:3001/api/accounts/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"cuenta 1\",\r\n    \"accountNumber\": 1234567910,\r\n    \"initialBalance\": 100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/api/accounts/",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"accounts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3001/api/accounts/1234567910/transactions/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"DEPOSIT\",\r\n    \"amount\": 2000000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/api/accounts/1234567910/transactions/",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"accounts",
+						"1234567910",
+						"transactions",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
