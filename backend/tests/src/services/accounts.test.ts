@@ -49,10 +49,6 @@ describe('AccountService', () => {
 
     it('should throw an error when an error occurs during the database query', async () => {
       const mockError = new Error('Database error');
-      const mockDatabaseConnection = {
-        close: jest.fn(),
-      };
-
       (AccountModel.findOne as jest.Mock).mockRejectedValue(mockError);
 
       await expect(AccountService.getAccountByNumber(123456)).rejects.toThrow(mockError);

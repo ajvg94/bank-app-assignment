@@ -1,4 +1,4 @@
-import { Account, UpdateCurrentBalanceData } from '../types/accounts';
+import { Account } from '../types/accounts';
 import { Transaction, transactionTypes } from '../types/transactions';
 import AccountModel  from '../database/accounts.model';
 import Database from "../database/connection";

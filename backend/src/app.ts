@@ -5,6 +5,8 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit"
 import slowDown from "express-slow-down";
 import cors from "cors";
+import { SwaggerUiOptions, serve, setup } from 'swagger-ui-express';
+import * as swaggerDocument from "./swagger.json";
 import { AccountRouter } from "./routes/accounts";
 import { TransactionRouter } from "./routes/transactions";
 
@@ -40,6 +42,23 @@ app.use(speedLimiter);
 
 //bodyparser
 app.use(express.json());
+
+/**
+ * @description
+ * This function returns an object with the
+ * options to render the Swagger Spec.
+ * @returns SwaggerUiOptions
+ */
+const swaggerOptions = (): SwaggerUiOptions => {
+    return {
+        explorer: false,
+        swaggerOptions: {
+            validatorUrl: "https://validator.swagger.io/validator"
+        }
+    };
+};
+
+app.use("/api-docs/public/", serve, setup(swaggerDocument, swaggerOptions()));
 
 //routes
 app.use(AccountRouter);

@@ -8,6 +8,7 @@ export default class Database{
         const databaseConnection = new Sequelize({
             dialect: "sqlite",
             storage: './database.sqlite3',
+            logging: false,
             models: [AccountModel, TransactionModel]
         });
         await databaseConnection.sync();

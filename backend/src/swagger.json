@@ -1,0 +1,207 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+		"title": "Bank App API",
+		"description": "API that handles requests for the Bank App",
+		"version": "1.0.0"
+	},
+	"servers": [
+		{
+			"url": "/api",
+			"description": "API VERSION 1"
+		}
+	],
+	"paths": {
+		"/accounts/": {
+			"post": {
+				"tags": [
+					"Account"
+				],
+				"summary": "Create an account from the provided data",
+				"description": "Returns created account id",
+				"requestBody": {
+					"description": "Account data",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/CreateAccount"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Reservation data obtained successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "success"
+										},
+										"data": {
+											"type": "object",
+											"$ref": "#/components/schemas/AccountId"
+										},
+										"message": {
+											"type": "string"
+										}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Some params were not received or are incorrect"
+					},
+					"401": {
+						"description": "Access token is missing or invalid"
+					},
+					"403": {
+						"description": "Unauthorized Access"
+					},
+					"404": {
+						"description": "The resource was not found on the server"
+					},
+					"500": {
+						"description": "Server failed to complete operation"
+					}
+				}
+			}
+		},
+		"/accounts/{accountNumber}/transactions/": {
+			"post": {
+				"tags": [
+					"Transactions"
+				],
+				"summary": "Creates a transaction for the selected account",
+				"description": "Returns the current account data after the transaction",
+				"parameters": [
+					{
+						"in": "path",
+						"name": "accountNumber",
+						"description": "Number of the account",
+						"required": true,
+						"schema": {
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "Account data",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Transaction"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Tramsaction created successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {
+											"type": "string",
+											"example": "success"
+										},
+										"data": {
+											"type": "object",
+											"$ref": "#/components/schemas/Account"
+										},
+										"message": {
+											"type": "string"
+										}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Some params were not received or are incorrect"
+					},
+					"401": {
+						"description": "Access token is missing or invalid"
+					},
+					"403": {
+						"description": "Unauthorized Access"
+					},
+					"404": {
+						"description": "The resource was not found on the server"
+					},
+					"500": {
+						"description": "Server failed to complete operation"
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+            "AccountId": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number"
+					}
+				}
+			},
+			"CreateAccount": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"accountNumber": {
+						"type": "number"
+					},
+					"initialBalance": {
+						"type": "number"
+					}
+				}
+			},
+            "Account": {
+				"type": "object",
+				"properties": {
+                    "id": {
+                        "type": "number"
+                    },
+					"name": {
+						"type": "string"
+					},
+					"accountNumber": {
+						"type": "number"
+					},
+					"currentBalance": {
+						"type": "number"
+					},
+					"initialBalance": {
+						"type": "number"
+					}
+				}
+			},
+			"Transaction": {
+				"type": "object",
+				"properties": {
+					"amount": {
+						"type": "number"
+					},
+                    "type": {
+						"enum": [
+							"DEPOSIT",
+							"WITHDRAWAL"
+						]
+					}
+				}
+			}
+        }
+	}
+}
