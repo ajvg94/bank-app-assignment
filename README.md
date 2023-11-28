@@ -1,6 +1,4 @@
-# Finance Tracker App
-
-This Finance Tracker App was developed as a part of a coding interview process challenge you can find the specific instructions in the instructions and requirements section.
+# Bank App Assignment
 
 ## Table of contents
 
