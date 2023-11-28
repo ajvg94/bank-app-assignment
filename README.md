@@ -86,6 +86,8 @@ Para probar los endpoints se puede utilizar el swagger el cual se encuentra en l
 Dado que poseo mas experiencia como desarrollador backend para este proyecto, he intentado centrarme mas en este aspecto del proyecto.
 Para empezar cree la base de datos para el proyecto, decidi usar SQLite ya qye no requiere instalacion o montar un servidor especifico; despues, cree los controladores y servicios para el proyecto y por ultimo los tests en jest, libreria que tuve que aprender a utilizar ya que es estoy mas acostumbrado a utilizar otras librerias como Mocha Chai Sinon y NYC. Luego continue testeando y corrigiendo bugs del backend hasta que quede satisfecho.
 
+Para una muestra de como implementaria algunas de las mejoras mencionadas como seguridad o checkeo de coverage  de tests pueden dirigirse a este repositorio (<https://github.com/ajvg94/finance-tracker-app>).
+
 En cuanto a mejoras para el backend existen muchas, desde agregar mas endpoints para tanto para las transacciones como para las cuentas (me limite a solo los endpoints solicitados por el ejercicio), asi como tambien seguridad mediante el uso de librerias como JWT, Bcrypt y Passport por ejemplo, la implementacion de cache con redis en caso de ser necesario. Tambien quiero mencionar que se podria implmentar un checkeo del coverage de los tests mediante librerias como NYC o alguna otra que sea compatible con Jest.
 
 Para el front end cree los componentes necesarios para poder mandar los datos al backend y sus respectivos tests.
