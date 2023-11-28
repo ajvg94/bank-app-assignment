@@ -5,16 +5,16 @@ import AccountModel from '../../../src/database/accounts.model';
 import Database from '../../../src/database/connection';
 
 jest.mock('../../../src/database/accounts.model', () => ({
-    findOne: jest.fn(),
-    create: jest.fn(),
-    update: jest.fn(),
+  findOne: jest.fn(),
+  create: jest.fn(),
+  update: jest.fn()
 }));
 
 jest.mock('../../../src/database/connection');
 
 const mockDatabaseConnection: any = {
-    close: jest.fn(),
-    sync: jest.fn()
+  close: jest.fn(),
+  sync: jest.fn()
 };
 
 const mockAccount: Account = {
