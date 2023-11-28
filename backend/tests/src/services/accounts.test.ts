@@ -37,7 +37,7 @@ describe('AccountService', () => {
   describe('getAccountByNumber', () => {
     it('should return an account when given a valid account number', async () => {
       jest.spyOn(Database, 'createNewDatabaseConnection').mockResolvedValue(mockDatabaseConnection);
-      (AccountModel.findOne as jest.Mock).mockResolvedValue(mockAccount);
+      (AccountModel.findOne as jest.Mock).mockResolvedValue({ dataValues: mockAccount });
 
       const result = await AccountService.getAccountByNumber(123456);
 

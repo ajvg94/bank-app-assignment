@@ -57,7 +57,6 @@ const swaggerOptions = (): SwaggerUiOptions => {
         }
     };
 };
-
 app.use("/api-docs/public/", serve, setup(swaggerDocument, swaggerOptions()));
 
 //routes

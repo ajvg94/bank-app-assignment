@@ -28,9 +28,9 @@ const mockAccount: Account = {
 };
 
 const mockTransaction: Transaction = {
-    accountNumber: 1234567,
-    type: transactionTypes.WITHDRAWAL,
-    amount: 200
+  accountNumber: 1234567,
+  type: transactionTypes.WITHDRAWAL,
+  amount: 200
 };
 
 const mockUpdatedAccount = {
