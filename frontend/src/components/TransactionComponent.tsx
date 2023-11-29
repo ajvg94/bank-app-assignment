@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { showToastSuccess, showToastError } from './Toast';
+import { errorResponse } from '../types/error';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -20,8 +22,11 @@ const TransactionComponent: React.FC<TransactionComponentProps> = () => {
       });
 
       setCurrentBalance(response.data.data.currentBalance);
+      showToastSuccess('Transaction successful!');
     } catch (error) {
-      console.error('Error during transaction:', error);
+      let errorMessage = error as errorResponse
+      console.error(errorMessage?.response?.data?.error)
+      showToastError('Transaction failed: '+ errorMessage?.response?.data?.error);
     }
   };
 

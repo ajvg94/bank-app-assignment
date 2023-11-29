@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { showToastSuccess, showToastError } from './Toast';
+import { errorResponse } from '../types/error';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -21,8 +23,12 @@ const AccountComponent: React.FC<AccountComponentProps> = ({ onAccountCreated })
       });
 
       onAccountCreated(response.data.data.id);
+      showToastSuccess('Account created successfully!');
     } catch (error) {
       console.error('Error creating account:', error);
+      let errorMessage = error as errorResponse
+      console.error(errorMessage?.response?.data?.error)
+      showToastError('Account creation failed: '+ errorMessage?.response?.data?.error);
     }
   };
 
