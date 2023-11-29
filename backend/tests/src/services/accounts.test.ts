@@ -57,43 +57,8 @@ describe('AccountService', () => {
     });
   });
 
-  describe('createAccount', () => {
-    it('should create an account and return its ID', async () => {
-      jest.spyOn(Database, 'createNewDatabaseConnection').mockResolvedValue(mockDatabaseConnection);
-      (AccountModel.create as jest.Mock).mockResolvedValue(mockAccount);
-
-      const result = await AccountService.createAccount(mockAccount);
-
-      expect(result).toEqual(mockAccount.id);
-      expect(Database.createNewDatabaseConnection).toHaveBeenCalled();
-      expect(AccountModel.create).toHaveBeenCalledWith(mockAccount);
-      expect(mockDatabaseConnection.close).toHaveBeenCalled();
-    });
-
-    it('should throw an error when an error occurs during the database creation', async () => {
-      const mockError = new Error('Database error');
-      (AccountModel.create as jest.Mock).mockRejectedValue(mockError);
-
-      await expect(AccountService.createAccount({} as Account)).rejects.toThrow(mockError);
-
-      expect(Database.createNewDatabaseConnection).toHaveBeenCalled();
-    });
-  });
-
   describe('updateCurrentBalance', () => {
-    it('should update the current balance based on a withdrawal transaction', async () => {
-      jest.spyOn(Database, 'createNewDatabaseConnection').mockResolvedValue(mockDatabaseConnection);
-      (AccountModel.update as jest.Mock).mockResolvedValue(mockAccount); 
-
-      const result = await AccountService.updateCurrentBalance(mockTransaction, mockAccount);
-
-      expect(result).toEqual(mockAccount);
-      expect(Database.createNewDatabaseConnection).toHaveBeenCalled();
-      expect(AccountModel.update).toHaveBeenCalled();
-      expect(mockDatabaseConnection.close).toHaveBeenCalled();
-    });
-
-    it('should update the current balance based on a deposit transaction', async () => {
+    it('should update the current balance based on a transaction', async () => {
       jest.spyOn(Database, 'createNewDatabaseConnection').mockResolvedValue(mockDatabaseConnection);
       (AccountModel.update as jest.Mock).mockResolvedValue(mockAccount); 
 
@@ -110,6 +75,32 @@ describe('AccountService', () => {
       (AccountModel.update as jest.Mock).mockRejectedValue(mockError);
 
       await expect(AccountService.updateCurrentBalance({} as Transaction, {} as Account)).rejects.toThrow(mockError);
+
+      expect(Database.createNewDatabaseConnection).toHaveBeenCalled();
+    });
+  });
+
+  describe('createAccount', () => {
+    it('should create an account and return its ID', async () => {
+      jest.spyOn(Database, 'createNewDatabaseConnection').mockResolvedValue(mockDatabaseConnection);
+      //@ts-ignore
+      jest.spyOn(AccountService, 'getAccountByNumber').mockResolvedValue(null);
+
+      (AccountModel.create as jest.Mock).mockResolvedValue(mockAccount);
+
+      const result = await AccountService.createAccount(mockAccount);
+
+      expect(result).toEqual(mockAccount.id);
+      expect(Database.createNewDatabaseConnection).toHaveBeenCalled();
+      expect(AccountModel.create).toHaveBeenCalledWith(mockAccount);
+      expect(mockDatabaseConnection.close).toHaveBeenCalled();
+    });
+
+    it('should throw an error when an error occurs during the database creation', async () => {
+      const mockError = new Error('Database error');
+      (AccountModel.create as jest.Mock).mockRejectedValue(mockError);
+
+      await expect(AccountService.createAccount({} as Account)).rejects.toThrow(mockError);
 
       expect(Database.createNewDatabaseConnection).toHaveBeenCalled();
     });

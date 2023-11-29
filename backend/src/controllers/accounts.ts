@@ -14,7 +14,7 @@ export class AccountController {
    */
   static async createAccount(req: Request, res: Response) {
     try {
-      let accountData = { ...req.body, currentBalance: req.body.initialBalance };
+      let accountData = req.body;
       await AccountValidator.createAccountSchema.validate(accountData, validatorOptions);
       let id = await AccountService.createAccount(accountData);
       res.status(200).send({ data: {id}, message: 'Account created succesfully' });

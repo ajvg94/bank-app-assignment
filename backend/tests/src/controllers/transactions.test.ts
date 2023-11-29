@@ -18,19 +18,19 @@ describe('TransactionController', () => {
   beforeEach(() => {
     // @ts-ignore
     mockRequest = {
-        params: { accountNumber: '123' },
-        body: {    
-          type: transactionTypes.WITHDRAWAL,
-          amount: 200 
-        } 
+      params: { accountNumber: '123' },
+      body: {    
+        type: transactionTypes.WITHDRAWAL,
+        amount: 200 
+      } 
     } as Request;
 
     mockAccount = {
-        id: 1,
-        name: "cuenta 1",
-        accountNumber: 1234567,
-        initialBalance: 100,
-        currentBalance: 500
+      id: 1,
+      name: "cuenta 1",
+      accountNumber: 1234567,
+      initialBalance: 100,
+      currentBalance: 500
     };
 
     mockResponse = ({

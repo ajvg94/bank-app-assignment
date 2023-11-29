@@ -14,7 +14,7 @@ export const handleErrorResponse = async (res: Response, error: any): Promise<vo
     console.log(`${handleErrorResponse.name}: `, error);
     switch (true) {
         case error instanceof ValidationError:
-            res.status(HttpStatusCodes.BAD_REQUEST).send({ status: HttpStatus.ERROR, error: error.errors });
+            res.status(HttpStatusCodes.BAD_REQUEST).send({ status: HttpStatus.ERROR, error: error.errors[0] });
             break;
         case error === ErrorTypes.INSUFFICIENT_FUNDS:
             res.status(HttpStatusCodes.BAD_REQUEST).send({ status: HttpStatus.ERROR, error: ErrorTypes.INSUFFICIENT_FUNDS });

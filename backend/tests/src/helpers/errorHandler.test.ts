@@ -27,7 +27,7 @@ describe('handleErrorResponse', () => {
     expect(mockResponse.status).toHaveBeenCalledWith(HttpStatusCodes.BAD_REQUEST);
     expect(mockResponse.send).toHaveBeenCalledWith({
       status: HttpStatus.ERROR,
-      error: mockValidationError.errors,
+      error: mockValidationError.errors[0],
     });
   });
 

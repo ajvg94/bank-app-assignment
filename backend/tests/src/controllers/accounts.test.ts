@@ -18,7 +18,6 @@ describe('AccountController', () => {
       body: {   
         name: "cuenta 1",
         accountNumber: 1234567,
-        currentBalance: 100,
         initialBalance: 100
      },
     } as Request;
@@ -42,7 +41,7 @@ describe('AccountController', () => {
       await AccountController.createAccount(mockRequest, mockResponse);
 
       expect(AccountValidator.createAccountSchema.validate).toHaveBeenCalledWith(mockRequest.body, validatorOptions);
-      expect(AccountService.createAccount).toHaveBeenCalledWith({ ...mockRequest.body, currentBalance: mockRequest.body.initialBalance });
+      expect(AccountService.createAccount).toHaveBeenCalledWith(mockRequest.body);
       expect(mockResponse.status).toHaveBeenCalledWith(200);
       expect(mockResponse.send).toHaveBeenCalledWith({ data: { id: 123 }, message: 'Account created succesfully' });
       expect(handleErrorResponse).not.toHaveBeenCalled();
@@ -70,7 +69,7 @@ describe('AccountController', () => {
       await AccountController.createAccount(mockRequest, mockResponse);
 
       expect(AccountValidator.createAccountSchema.validate).toHaveBeenCalledWith(mockRequest.body, validatorOptions);
-      expect(AccountService.createAccount).toHaveBeenCalledWith({ ...mockRequest.body, currentBalance: mockRequest.body.initialBalance });
+      expect(AccountService.createAccount).toHaveBeenCalledWith(mockRequest.body);
       expect(handleErrorResponse).toHaveBeenCalledWith(mockResponse, mockServiceError);
     });
 

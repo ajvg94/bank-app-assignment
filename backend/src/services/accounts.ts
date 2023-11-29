@@ -1,4 +1,5 @@
 import { Account } from '../types/accounts';
+import { HttpStatusCodes } from '../types/httpStatus';
 import { ErrorTypes } from '../types/error';
 import { Transaction, transactionTypes } from '../types/transactions';
 import AccountModel  from '../database/accounts.model';
@@ -32,11 +33,17 @@ export default class AccountService {
    */
   static async createAccount(createAccountData: Account): Promise<number | undefined> {
     try{
-      let databaseConnection = await Database.createNewDatabaseConnection();
-      const createdAccount: Account = await AccountModel.create({...createAccountData});
-      await databaseConnection.close();
+      const account = await AccountService.getAccountByNumber(createAccountData.accountNumber);
+      if(!account) {
+        createAccountData.currentBalance = createAccountData.initialBalance;
+        
+        let databaseConnection = await Database.createNewDatabaseConnection();
+        
+        const createdAccount: Account = await AccountModel.create({...createAccountData});
+        await databaseConnection.close();
 
-      return createdAccount.id;
+        return createdAccount.id;
+      }else throw HttpStatusCodes.CONFLICT;
     }catch(error){
       throw(error);
     }
