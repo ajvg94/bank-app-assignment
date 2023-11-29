@@ -3,7 +3,7 @@ import axios from 'axios';
 import { showToastSuccess, showToastError } from './Toast';
 import { errorResponse } from '../types/error';
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface AccountComponentProps {
   onAccountCreated: (accountId: number) => void;
@@ -26,7 +26,7 @@ const AccountComponent: React.FC<AccountComponentProps> = ({ onAccountCreated })
       showToastSuccess('Account created successfully!');
     } catch (error) {
       console.error('Error creating account:', error);
-      let errorMessage = error as errorResponse
+      const errorMessage = error as errorResponse
       console.error(errorMessage?.response?.data?.error)
       showToastError('Account creation failed: '+ errorMessage?.response?.data?.error);
     }

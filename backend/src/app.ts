@@ -21,7 +21,7 @@ const corsOption = {
     credentials: true,
     optionsSuccessStatus: 200,
     methods: "POST",
-    origin: ['http://localhost:3000','http://localhost:3001','http://localhost:3003']
+    origin: ['http://localhost:3001','http://localhost:3002','http://localhost:5173']
 }
 app.use(cors(corsOption));
 

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { showToastSuccess, showToastError } from './Toast';
 import { errorResponse } from '../types/error';
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface TransactionComponentProps {
 }
@@ -24,7 +24,7 @@ const TransactionComponent: React.FC<TransactionComponentProps> = () => {
       setCurrentBalance(response.data.data.currentBalance);
       showToastSuccess('Transaction successful!');
     } catch (error) {
-      let errorMessage = error as errorResponse
+      const errorMessage = error as errorResponse
       console.error(errorMessage?.response?.data?.error)
       showToastError('Transaction failed: '+ errorMessage?.response?.data?.error);
     }
