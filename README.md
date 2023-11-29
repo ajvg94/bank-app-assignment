@@ -89,8 +89,8 @@ Para una muestra de como implementaria algunas de las mejoras mencionadas como s
 En cuanto a mejoras para el backend existen muchas, desde agregar mas endpoints para tanto para las transacciones como para las cuentas (me limite a solo los endpoints solicitados por el ejercicio), asi como tambien seguridad mediante el uso de librerias como JWT, Bcrypt y Passport por ejemplo, la implementacion de cache con redis en caso de ser necesario. Tambien quiero mencionar que se podria implmentar un checkeo del coverage de los tests mediante librerias como NYC o alguna otra que sea compatible con Jest.
 
 Para el front end cree los componentes necesarios para poder mandar los datos al backend y sus respectivos tests.
-Como mencione anteriormente todavia me encuentro aprendiendo y mejorando con React por lo cual no implemente mas funcionalidades aparte de las basicas solicitadas.
-Como mejoras a futuro se puede mejorar el aspecto de los componentes asi como tambien crear nuevos componentes para el login, un dashboard, historial de transacciones, etc.
+Como mencione anteriormente todavia me encuentro aprendiendo y mejorando con React por lo cual no implemente mas funcionalidades aparte de las basicas solicitadas y tampoco implemente las pruebas unitarias para los componentes.
+Como mejoras a futuro se puede mejorar tanto el aspecto de los componentes asi como tambien crear nuevos componentes para agregar mas funcionalidades como el login, un dashboard, historial de transacciones, etc; asi como tambien agregar las respectivas pruebas unitarias.
 
 Quedo atento a cualquier duda o sugerencia.
 
