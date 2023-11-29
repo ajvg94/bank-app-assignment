@@ -57,9 +57,7 @@ Instalar NodeJs version 16.x or superior
 Para instalar y testear el frontend se pueden utilizar los siguientes comandos:
     npm install
     
-    npm start
-    
-    npm test
+    npm run dev
 
 ### Backend
 
